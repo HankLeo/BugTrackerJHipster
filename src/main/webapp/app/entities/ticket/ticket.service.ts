@@ -45,6 +45,13 @@ export class TicketService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  queryMyTickets(): Observable<EntityArrayResponseType> {
+    const options = createRequestOption();
+    return this.http
+      .get<ITicket[]>(this.resourceUrl + '/self', { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
